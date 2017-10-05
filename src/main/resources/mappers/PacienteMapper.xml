@@ -14,7 +14,7 @@
     
        
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
-
+        SELECT nombre FROM CM_PACIENTES;
     </select>
     
 
