@@ -9,7 +9,13 @@
 
         
     <select parameterType="map" id="loadPacienteByID" resultMap="PacienteResult">
-
+        select
+        id,
+        tipo_id,
+        nombre,
+        fecha_nacimiento
+        from CM_PACIENTES
+        where id = #{idp} and tipo_id = #{tipoidp}
     </select>
     
        
@@ -37,7 +43,7 @@
         <id property='id' column='id'/>
         <id property="tipoId" column="tipo_id"/>
         <result property="nombre" column="nombre"/>
-        <result property="fecha_nacimi" column="fecha_nacimi"/>
+        <result property="fechaNacimiento" column="fecha_nacimi"/>
         <result property="nit" column="eps_nit"/>
         <association property="eps" javaType="Eps" columnPrefix="eps_"/>
         <collection property="consultas" ofType="Consulta" columnPrefix="consultas_"/>
