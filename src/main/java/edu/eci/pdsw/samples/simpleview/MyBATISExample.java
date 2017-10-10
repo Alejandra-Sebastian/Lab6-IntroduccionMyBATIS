@@ -53,7 +53,7 @@ public class MyBATISExample {
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
 
         List<Paciente> pacientes=pmapper.loadPacientes();
-        Paciente paciente = pmapper.loadPacienteById(12313, "CC");
+        Paciente paciente = pmapper.loadPacienteById(1068953380, "CC");
         for (Paciente p : pacientes) {
             System.out.println(p.getNombre());
         }
