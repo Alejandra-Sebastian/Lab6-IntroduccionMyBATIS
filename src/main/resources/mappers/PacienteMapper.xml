@@ -9,7 +9,7 @@
 
         
     <select parameterType="map" id="loadPacienteById" resultMap="PacienteResult">
-        select
+        SELECT
     
         p.id,
         p.tipo_id,
@@ -28,10 +28,9 @@
         
         WHERE p.id = #{idp} AND p.tipo_id = #{tipoidp}
     </select>
-    
-       
+           
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
-        select
+        SELECT
             
         p.id,
         p.tipo_id,
@@ -47,7 +46,13 @@
         c.costo
 
         FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
-    </select> 
+    </select>
+    
+    <insert id="insertarPaciente">
+        INSERT INTO CM_PACIENTES (id, tipo_id, nombre, fecha_nacimiento, EPS_nit)
+        VALUES (#{paci.id}, #{paci.tipoId}, #{paci.nombre}, #{paci.fechaNacimiento}, #{paci.eps.nit})
+    </insert>
+    
     <resultMap type='Paciente' id='PacienteResult'>
         <id property='id' column='id'/>
         <id property="tipoId" column="tipo_id"/>
