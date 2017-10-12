@@ -53,6 +53,11 @@
         VALUES (#{paci.id}, #{paci.tipoId}, #{paci.nombre}, #{paci.fechaNacimiento}, #{paci.eps.nit})
     </insert>
     
+    <insert id="insertConsulta" useGeneratedKeys="true" keyProperty="consul.id">
+	INSERT INTO CM_CONSULTAS
+        VALUES (#{consul.id}, #{consul.fechayHora}, #{consul.resumen}, #{costo}, #{idpaci}, #{tipoidpaci})
+    </insert>
+    
     <resultMap type='Paciente' id='PacienteResult'>
         <id property='id' column='id'/>
         <id property="tipoId" column="tipo_id"/>

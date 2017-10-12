@@ -6,6 +6,7 @@
 package edu.eci.pdsw.samples.simpleview;
 
 import edu.eci.pdsw.persistence.impl.mappers.PacienteMapper;
+import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Eps;
 import edu.eci.pdsw.samples.entities.Paciente;
 import java.io.IOException;
@@ -55,17 +56,20 @@ public class MyBATISExample {
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
 
         List<Paciente> pacientes=pmapper.loadPacientes();
-        
+//imprimir contenido de la lista        
         for (Paciente p : pacientes) {
             System.out.println(p.getNombre());
         }
-        Paciente paci = new Paciente(81310257, "CC", "Kalisto", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
-        pmapper.insertarPaciente(paci);
+        Paciente paci = new Paciente(3, "CC", "Neville", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
+        //pmapper.insertarPaciente(paci);
+        Consulta con = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+        pmapper.insertConsulta(con, 3, "CC", 15000);
         Paciente paciente = pmapper.loadPacienteById(81310257, "CC");
         System.out.println("");
         System.out.println(paciente.getNombre());
+        
+        sqlss.commit();
 
-//imprimir contenido de la lista
         
     }
 
