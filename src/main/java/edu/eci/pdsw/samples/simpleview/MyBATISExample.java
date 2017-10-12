@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -60,13 +62,21 @@ public class MyBATISExample {
         for (Paciente p : pacientes) {
             System.out.println(p.getNombre());
         }
-        Paciente paci = new Paciente(3, "CC", "Neville", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
+        Paciente paci = new Paciente(10, "CC", "Roman", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
         //pmapper.insertarPaciente(paci);
-        Consulta con = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
-        pmapper.insertConsulta(con, 3, "CC", 15000);
-        Paciente paciente = pmapper.loadPacienteById(81310257, "CC");
-        System.out.println("");
-        System.out.println(paciente.getNombre());
+        Consulta con1 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+        Consulta con2 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+        Consulta con3 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+        Set<Consulta> consultas = new LinkedHashSet<Consulta>();
+        consultas.add(con1);
+        consultas.add(con2);
+        consultas.add(con3);
+        //pmapper.insertConsulta(con, 10, "CC", 15000);
+        paci.setConsultas(consultas);
+        //Paciente paciente = pmapper.loadPacienteById(81310257, "CC");
+//        System.out.println("");
+//        System.out.println(paciente.getNombre());
+        registrarNuevoPaciente(pmapper, paci);
         
         sqlss.commit();
 
@@ -78,8 +88,16 @@ public class MyBATISExample {
      * @param pmap mapper a traves del cual se hará la operacion
      * @param p paciente a ser registrado
      */
-    public void registrarNuevoPaciente(PacienteMapper pmap, Paciente p){
-        
+    public static void registrarNuevoPaciente(PacienteMapper pmap, Paciente p){
+        pmap.insertarPaciente(p);
+        Set<Consulta> consults = p.getConsultas();
+        Consulta[] consultas = new Consulta[consults.size()];
+        consults.toArray(consultas);
+        if(consultas.length > 0){
+            for(Consulta c : consultas) {
+                pmap.insertConsulta(c, p.getId(), p.getTipoId(), (int) c.getCosto());
+            }       
+        }
     }
     
 }
