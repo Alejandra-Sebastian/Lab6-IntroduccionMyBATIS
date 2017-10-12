@@ -58,6 +58,10 @@
         VALUES (#{consul.id}, #{consul.fechayHora}, #{consul.resumen}, #{costo}, #{idpaci}, #{tipoidpaci})
     </insert>
     
+    <update id="actualizarPaciente">
+        
+    </update>
+    
     <resultMap type='Paciente' id='PacienteResult'>
         <id property='id' column='id'/>
         <id property="tipoId" column="tipo_id"/>
