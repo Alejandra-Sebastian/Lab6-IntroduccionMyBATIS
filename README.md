@@ -71,15 +71,15 @@ Y corresponde al siguiente modelo:
         <id property='propiedad1' column='COLUMNA1'/>
         <result property='propiedad2' column='COLUMNA2'/>
         <result property='propiedad3' column='COLUMNA3'/>  
-        <collection property='propiedad4' ofType='DetalleUno'></collection>
-		<association property="propiedad5" javaType="DetalleDos"></association>      
+	<association property="propiedad5" javaType="DetalleDos"></association>      
+        <collection property='propiedad4' ofType='DetalleUno'></collection>		
     </resultMap>
 
     <resultMap type='DetalleUno' id='DetalleResult'>
         <id property='propiedadx' column='COLUMNAX'/>
         <result property='propiedady' column='COLUMNAY'/>
         <result property='propiedadz' column='COLUMNAZ'/> 
-		 <association property="propiedadw" javaType="DetalleDos"></association>      
+	<association property="propiedadw" javaType="DetalleDos"></association>      
     </resultMap>
     
     <resultMap type='DetalleDos' id='DetalleResult'>
@@ -143,7 +143,7 @@ Y corresponde al siguiente modelo:
 	* Agregue la anotación @Param a dicho parámetro, asociando a ésta el nombre con el que se referirá en la sentencia SQL:
 
 	```java
-		public Paciente getPaciente(@Param("idp") int id,@Param("tipoidp") String tipoid);
+		public Paciente loadPacienteByID(@Param("idp") int id,@Param("tipoidp") String tipoid);
 	```
 
 	* Al XML (\<select>, \<insert>, etc) asociado al método del mapper, agregue la propiedad _parameterType="map"_ .
@@ -195,6 +195,28 @@ En este caso tenga en cuenta que como la operación es una transacción con vari
 	...
 	```
 
+4. A la clase MyBatisExample agregue e implemente una operación que permita actualizar al paciente:
+
+	```java	
+	/**
+     * @obj Actualizar los datos básicos del paciente, con sus * respectivas consultas.
+     * @pre El paciente p ya existe
+	 * @param pmap mapper a traves del cual se hará la operacion
+     * @param p paciente a ser registrado
+     */
+    public void actualizarPaciente(PacienteMapper pmap, Paciente p)
+
+	```
+	Para esto requiere:
+	
+	* Agregar una operación de tipo \<update> en el mapper de paciente, que sólo cambie los datos básicos del paciente mediante una sentencia UPDATE.
+	* En la implementación de 'actualizarPaciente', hacer uso de la operación UPDATE anterior, y luego, consecutivamente insertar SÓLO las consultas que NO están aún en la base de datos. Para saber cuales no están aún en la base de datos, basta con que su identificador no haya sido inicializado (en este caso, que sea cero). 
 
 
-    
+4. Siguiendo el esquema anterior, implemente un EPSMapper que por ahora sólo tenga el método:
+
+	```java
+	public List<EPS> loadAllEPS();
+	```    
+
+	Y pruebe su funcionamiento también agregando una operación a la clase 
