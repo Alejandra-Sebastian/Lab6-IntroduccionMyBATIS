@@ -59,7 +59,9 @@
     </insert>
     
     <update id="actualizarPaciente">
-        
+        UPDATE CM_PACIENTES
+        SET nombre = #{paci.nombre}, fecha_nacimiento = #{paci.fechaNacimiento}
+        WHERE id = #{paci.id}
     </update>
     
     <resultMap type='Paciente' id='PacienteResult'>

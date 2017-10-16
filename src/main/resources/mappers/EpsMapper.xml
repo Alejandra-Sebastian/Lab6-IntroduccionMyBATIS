@@ -6,7 +6,7 @@
 <mapper namespace="edu.eci.pdsw.persistence.impl.mappers.EpsMapper">
     <select parameterType="map" id="loadAllEPS" resultMap="EpsResult">
         SELECT *
-        FROM  CM_EPS
+        FROM CM_EPS
     </select>
     
     

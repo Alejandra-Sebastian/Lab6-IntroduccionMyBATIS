@@ -61,30 +61,39 @@ public class MyBATISExample {
         SqlSession sqlss = sessionfact.openSession();
         PacienteMapper pmapper=sqlss.getMapper(PacienteMapper.class);
 
-        List<Paciente> pacientes=pmapper.loadPacientes();
+//        List<Paciente> pacientes=pmapper.loadPacientes();
 //imprimir contenido de la lista        
-        for (Paciente p : pacientes) {
-            System.out.println(p.getNombre());
-        }
-        Paciente paci = new Paciente(10, "CC", "Roman", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
+//        for (Paciente p : pacientes) {
+//            System.out.println(p.getNombre());
+//        }
+//        Paciente paci = new Paciente(10, "CC", "Roman", new Date(1998, 9, 15), new Eps("Sanitas", "8456982"));
         //pmapper.insertarPaciente(paci);
-        Consulta con1 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
-        Consulta con2 = new Consulta(new Date(2017, 11, 10), "Brazo Roto", 15000);
-        Consulta con3 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
-        Consulta con4 = new Consulta(new Date(2017, 11, 11), "Brazos Rotos :(", 15000);
-        Set<Consulta> consultas = new LinkedHashSet<Consulta>();
-        consultas.add(con1);
-        consultas.add(con2);
-        consultas.add(con3);
-        consultas.add(con4);
+//        Consulta con1 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+//        Consulta con2 = new Consulta(new Date(2017, 11, 10), "Brazo Roto", 15000);
+//        Consulta con3 = new Consulta(new Date(2017, 10, 10), "Brazo Roto", 15000);
+//        Consulta con4 = new Consulta(new Date(2017, 11, 11), "Brazos Rotos :(", 15000);
+//        Set<Consulta> consultas = new LinkedHashSet<Consulta>();
+//        consultas.add(con1);
+//        consultas.add(con2);
+//        consultas.add(con3);
+//        consultas.add(con4);
         //pmapper.insertConsulta(con, 10, "CC", 15000);
-        paci.setConsultas(consultas);
+//        paci.setConsultas(consultas);
         //Paciente paciente = pmapper.loadPacienteById(81310257, "CC");
 //        System.out.println("");
 //        System.out.println(paciente.getNombre());
         //registrarNuevoPaciente(pmapper, paci);
-        actualizarPaciente(pmapper,paci);
-        
+//        Paciente paci = new Paciente(10, "CC", "Jack", new Date(1508100569000L), new Eps("Sanitas", "8456982"));
+//        Consulta c = new Consulta(new Date(1508255400000L), "Dolor", 15000);
+//        Set<Consulta> consultas = paci.getConsultas();
+//        consultas.add(c);
+//        paci.setConsultas(consultas);
+//        actualizarPaciente(pmapper,paci);
+
+        List<Eps> epses = loadAllEPS();
+        for(Eps e : epses) {
+            System.out.println(e.getNombre());
+        }
         sqlss.commit();
 
         
@@ -114,6 +123,7 @@ public class MyBATISExample {
     * @param p paciente a ser registrado
     */
    public static void actualizarPaciente(PacienteMapper pmap, Paciente p){
+       pmap.actualizarPaciente(pmap, p);
        Set<Consulta> consults = p.getConsultas();
        Consulta[] consultas = new Consulta[consults.size()];
        consults.toArray(consultas);
@@ -129,7 +139,7 @@ public class MyBATISExample {
        SqlSessionFactory sessionfact = getSqlSessionFactory();
        SqlSession sqlss = sessionfact.openSession();
        EpsMapper pmapper=sqlss.getMapper(EpsMapper.class);
-       List<Eps> ep = pmapper.loadAllEps();
+       List<Eps> ep = pmapper.loadAllEPS();
        return ep;
    }
     

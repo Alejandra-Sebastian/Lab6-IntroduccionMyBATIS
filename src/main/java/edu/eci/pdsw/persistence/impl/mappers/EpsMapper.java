@@ -5,9 +5,7 @@ package edu.eci.pdsw.persistence.impl.mappers;
  * and open the template in the editor.
  */
 import edu.eci.pdsw.samples.entities.Eps;
-
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 /**
  *
